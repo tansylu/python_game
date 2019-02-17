@@ -23,12 +23,15 @@ boom = pygame.mixer.Sound('boom.wav')
 sound = pygame.mixer.Sound('action.wav')
 # добавление звука 
 
-def plays(ok):
-    if not ok:
+def plays(ok, h):
+    global q
+    if not ok and q:
         back.stop()
+        final.play(0)
+        q = False
        
  
-n, h, j, c, d = 0, 5, 8, 8, 15
+n, h, j, c, d, q = 0, 5, 8, 8, 15, True
 # очки и скорость
 
 ok = True
@@ -154,7 +157,7 @@ while 1: # игровой цикл
             pos = pygame.mouse.get_pos()
             love(boys, pos)
             # нажатие мышью
-        plays(ok)
+        plays(ok, q)
      if not ok:
         final.play()
      screen.blit(image, [0, 0])
