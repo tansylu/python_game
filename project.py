@@ -137,4 +137,5 @@ while 1: # игровой цикл
      pygame.display.update()# обновление поля
      pygame.time.delay(10)
      bombs.update()
-     boys.update() # обновление групп
+     boys.update() 
+     all_sprites.update()# обновление групп
