@@ -146,14 +146,14 @@ while 1: # игровой цикл
         if event.type == pygame.QUIT:
             exit()
             # завершение
-        elif event.type == pygame.USEREVENT:
+        elif event.type == pygame.USEREVENT and ok:
             if count%randint(1, 8) != 0:
                 Boy(randint(50, 900), BOYS_SURF[randint(0, 2)], boys)
             else:
                 Bomb(randint(50, 900), bomb, bombs)
             count+=1
             # появление спрайтов
-        elif event.type == pygame.MOUSEBUTTONDOWN:
+        elif event.type == pygame.MOUSEBUTTONDOWN and ok:
             pos = pygame.mouse.get_pos()
             love(boys, pos)
             # нажатие мышью
