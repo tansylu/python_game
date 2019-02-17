@@ -8,6 +8,7 @@ pygame.time.set_timer(pygame.USEREVENT, 3000)
 screen = pygame.display.set_mode((1000, 1000))
 image = pygame.image.load(os.path.join('data', 'back.jpg'))
 screen.blit(image, [0, 0])
+sound = pygame.mixer.Sound('action.wav') # добавление звука при нажатии
 # инициализация поля 
     
 BOYS = ('boy.jpg','boy1.jpg', 'boy2.jpg', 'boy3.jpg')
@@ -53,6 +54,7 @@ while 1: # игровой цикл
         elif event.type == pygame.MOUSEBUTTONDOWN:
             pos = pygame.mouse.get_pos()
             Boy.love(boys, pos)
+            sound.play()
             # нажатие мышью
     
     screen.blit(image, [0, 0]) 
