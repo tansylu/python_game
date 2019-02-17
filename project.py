@@ -8,6 +8,8 @@ pygame.time.set_timer(pygame.USEREVENT, 3000)
 screen = pygame.display.set_mode((1000, 1000))
 image = pygame.image.load(os.path.join('data', 'back.jpg'))
 screen.blit(image, [0, 0])
+bomb = pygame.image.load(os.path.join('data', 'bomb.png')).convert_alpha()
+heart = pygame.image.load(os.path.join('data', 'heart.png'))
 boom = pygame.mixer.Sound('boom.wav')
 sound = pygame.mixer.Sound('action.wav') # добавление звука при нажатии
 # инициализация поля 
@@ -126,13 +128,13 @@ while 1: # игровой цикл
             Boy.love(boys, pos)
             # нажатие мышью
     
-   screen.blit(image, [0, 0]) 
-   score(n)
-   bombs.draw(screen)
-   boys.draw(screen)
-   all_sprites.draw(screen)# отрисовка спрайтов
-   pygame.display.update()# обновление поля
-   pygame.time.delay(10)
-   bombs.draw(screen)
-   boys.draw(screen)
-   all_sprites.draw(screen) # обновление групп
+    screen.blit(image, [0, 0]) 
+    score(n)
+    bombs.draw(screen)
+    boys.draw(screen)
+    all_sprites.draw(screen)# отрисовка спрайтов
+    pygame.display.update()# обновление поля
+    pygame.time.delay(10)
+    bombs.draw(screen)
+    boys.draw(screen)
+    all_sprites.draw(screen) # обновление групп
