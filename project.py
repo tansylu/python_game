@@ -11,12 +11,20 @@ image = pygame.image.load(os.path.join('data', 'back.jpg'))
 screen.blit(image, [0, 0])
 bomb = pygame.image.load(os.path.join('data', 'bomb.png')).convert_alpha()
 heart = pygame.image.load(os.path.join('data', 'heart.png'))
+gameover = pygame.image.load(os.path.join('data', 'death.jpg'))
+back = pygame.mixer.Sound('back.wav')
+back.play(-1)
 boom = pygame.mixer.Sound('boom.wav')
-sound = pygame.mixer.Sound('action.wav') # добавление звука при нажатии
+sound = pygame.mixer.Sound('action.wav')
+# добавление звука при нажатии
+def plays(ok):
+    if not ok:
+        back.stop()
 # инициализация поля 
 n, h, j, c, d = 0, 5, 8, 8, 15
 # очки и скорость
 
+ok = True
 BOYS = ('boy.jpg','boy1.jpg', 'boy2.jpg', 'boy3.jpg')
 BOYS_SURF = []  
 for i in range(len(BOYS)):
@@ -85,7 +93,7 @@ def create_particles(position):
             Particle(position, random.choice(numbers), random.choice(numbers))
             # создание частиц 
 def love(boys, pos):
-        global n, h, j, c, d
+        global n, h, j, c, d, ok,  image, gameover
         for b in boys:
             if b.rect.collidepoint(pos):
                 sound.play()
@@ -93,6 +101,9 @@ def love(boys, pos):
                 n += 1
                 h += 2
                 j += 2
+            else:
+                ok = False
+                image = gameover # завершение игры при нажатии не на картинку
         for b in bombs:
             if b.rect.collidepoint(pos):
                 boom.play()
@@ -100,16 +111,24 @@ def love(boys, pos):
                 n += 10
                 c += 2
                 d += 2
-                create_particles(pos)
+                Bomb.create_particles(pos)
+            else:
+                ok = False
+                image = gameover # завершение игры при нажатии не на картинку
         # замена изображения парня изображением сердца при нажатии
 def score(n):
     font = pygame.font.SysFont( 'couriernew', 25)
     text = font.render("Caught: "+str(n), True, (0, 0, 0))
     sp = font.render("Boys_Speed: "+str(h)+'-'+str(j), True, (0, 0, 0))
     spb = font.render("Bombs_Speed: "+str(c)+'-'+str(d), True, (0, 0, 0))
-    screen.blit(text,(0,0))
-    screen.blit(sp,(0,25))
-    screen.blit(spb,(0,50))
+    if ok:
+        screen.blit(text,(0,0))
+        screen.blit(sp,(0,25))
+        screen.blit(spb,(0,50))
+    else:
+        font = pygame.font.SysFont( 'couriernew', 50)
+        text = font.render("Record: "+str(n), True, (238, 8, 8))
+        screen.blit(text,(0,0))
     # вывод очков и скорости
 
 while 1: # игровой цикл
@@ -128,7 +147,7 @@ while 1: # игровой цикл
             pos = pygame.mouse.get_pos()
             love(boys, pos)
             # нажатие мышью
-    
+        plays(ok)
      screen.blit(image, [0, 0]) 
      score(n)
      bombs.draw(screen)
