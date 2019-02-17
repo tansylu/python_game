@@ -9,18 +9,25 @@ pygame.time.set_timer(pygame.USEREVENT, 3000)
 screen = pygame.display.set_mode((1000, 1000))
 image = pygame.image.load(os.path.join('data', 'back.jpg'))
 screen.blit(image, [0, 0])
+# инициализация поля
+
 bomb = pygame.image.load(os.path.join('data', 'bomb.png')).convert_alpha()
 heart = pygame.image.load(os.path.join('data', 'heart.png'))
 gameover = pygame.image.load(os.path.join('data', 'death.jpg'))
+# загрузка необходимых изображений
+
 back = pygame.mixer.Sound('back.wav')
 back.play(-1)
+final = pygame.mixer.Sound('final.wav')
 boom = pygame.mixer.Sound('boom.wav')
 sound = pygame.mixer.Sound('action.wav')
-# добавление звука при нажатии
+# добавление звука 
+
 def plays(ok):
     if not ok:
         back.stop()
-# инициализация поля 
+       
+ 
 n, h, j, c, d = 0, 5, 8, 8, 15
 # очки и скорость
 
@@ -148,7 +155,9 @@ while 1: # игровой цикл
             love(boys, pos)
             # нажатие мышью
         plays(ok)
-     screen.blit(image, [0, 0]) 
+     if not ok:
+        final.play()
+     screen.blit(image, [0, 0])
      score(n)
      bombs.draw(screen)
      boys.draw(screen)
