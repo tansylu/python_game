@@ -158,15 +158,13 @@ while 1: # игровой цикл
             love(boys, pos)
             # нажатие мышью
         plays(ok, q)
-     if not ok:
-        final.play()
-     screen.blit(image, [0, 0])
-     score(n)
-     bombs.draw(screen)
-     boys.draw(screen)
-     all_sprites.draw(screen)# отрисовка спрайтов
-     pygame.display.update()# обновление поля
-     pygame.time.delay(10)
-     bombs.update()
-     boys.update() 
-     all_sprites.update()# обновление групп
+    screen.blit(image, [0, 0])
+    score(n)
+    bombs.draw(screen)
+    boys.draw(screen)
+    all_sprites.draw(screen)# отрисовка спрайтов
+    pygame.display.update()# обновление поля
+    pygame.time.delay(10)
+    bombs.update()
+    boys.update() 
+    all_sprites.update()# обновление групп
