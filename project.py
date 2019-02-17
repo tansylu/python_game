@@ -1,6 +1,7 @@
 from random import randint
 import pygame
 import os
+import random
 # импорт необходимых модулей
 
 pygame.init()
@@ -117,7 +118,7 @@ while 1: # игровой цикл
             exit()
             # завершение
         elif event.type == pygame.USEREVENT:
-            if count%5 != 0:
+            if count%randint(1, 8) != 0:
                 Boy(randint(50, 900), BOYS_SURF[randint(0, 2)], boys)
             else:
                 Bomb(randint(50, 900), bomb, bombs)
@@ -125,16 +126,15 @@ while 1: # игровой цикл
             # появление спрайтов
         elif event.type == pygame.MOUSEBUTTONDOWN:
             pos = pygame.mouse.get_pos()
-            Boy.love(boys, pos)
+            love(boys, pos)
             # нажатие мышью
     
-    screen.blit(image, [0, 0]) 
-    score(n)
-    bombs.draw(screen)
-    boys.draw(screen)
-    all_sprites.draw(screen)# отрисовка спрайтов
-    pygame.display.update()# обновление поля
-    pygame.time.delay(10)
-    bombs.draw(screen)
-    boys.draw(screen)
-    all_sprites.draw(screen) # обновление групп
+     screen.blit(image, [0, 0]) 
+     score(n)
+     bombs.draw(screen)
+     boys.draw(screen)
+     all_sprites.draw(screen)# отрисовка спрайтов
+     pygame.display.update()# обновление поля
+     pygame.time.delay(10)
+     bombs.update()
+     boys.update() # обновление групп
