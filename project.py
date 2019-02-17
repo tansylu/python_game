@@ -8,6 +8,7 @@ pygame.time.set_timer(pygame.USEREVENT, 3000)
 screen = pygame.display.set_mode((1000, 1000))
 image = pygame.image.load(os.path.join('data', 'back.jpg'))
 screen.blit(image, [0, 0])
+boom = pygame.mixer.Sound('boom.wav')
 sound = pygame.mixer.Sound('action.wav') # добавление звука при нажатии
 # инициализация поля 
     
@@ -52,10 +53,16 @@ class Boy(pygame.sprite.Sprite):
         else:
             self.kill()
         # функция, удаляющая спрайт за пределами поля
-    def love(boys, pos):
+   def love(boys, pos):
         for b in boys:
             if b.rect.collidepoint(pos):
+                sound.play()
                 b.image = heart
+        for b in bombs:
+            if b.rect.collidepoint(pos):
+                boom.play()
+                b.kill()
+                Bomb.create_particles(pos)
         # замена изображения парня изображением сердца при нажатии
 class Bomb(pygame.sprite.Sprite):
     def __init__(self, x, surf, group):
@@ -99,7 +106,6 @@ while 1: # игровой цикл
         elif event.type == pygame.MOUSEBUTTONDOWN:
             pos = pygame.mouse.get_pos()
             Boy.love(boys, pos)
-            sound.play()
             # нажатие мышью
     
     screen.blit(image, [0, 0]) 
