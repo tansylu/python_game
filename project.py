@@ -104,27 +104,27 @@ def create_particles(position):
             # создание частиц 
 def love(boys, pos):
         global n, h, j, c, d, ok,  image, gameover
+        flag = False
         for b in boys:
             if b.rect.collidepoint(pos):
                 sound.play()
                 b.image = heart
                 n += 1
                 h += 2
-                j += 2
-            else:
-                ok = False
-                image = gameover # завершение игры при нажатии не на картинку
-        for b in bombs:
-            if b.rect.collidepoint(pos):
-                boom.play()
-                b.kill()
-                n += 10
-                c += 2
-                d += 2
-                Bomb.create_particles(pos)
-            else:
-                ok = False
-                image = gameover # завершение игры при нажатии не на картинку
+                j += 
+                flag = True
+        if not flag:
+            for b in bombs:
+                if b.rect.collidepoint(pos):
+                    boom.play()
+                    b.kill()
+                    n += 10
+                    c += 2
+                    d += 2
+                    create_particles(pos)
+                else:
+                    ok = False
+                    image = gameover # завершение игры при нажатии не на картинку
         # замена изображения парня изображением сердца при нажатии
 def score(n):
     font = pygame.font.SysFont( 'couriernew', 25)
