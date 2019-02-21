@@ -111,7 +111,7 @@ def love(boys, pos):
                 b.image = heart
                 n += 1
                 h += 2
-                j += 
+                j += 2
                 flag = True
         if not flag:
             for b in bombs:
